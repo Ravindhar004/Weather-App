@@ -2,7 +2,7 @@ const userlocation = document.getElementById("userlocation")
  converter = document.getElementById("converter")
  weathericon = document.querySelector(".weathericon")
  temperature = document.querySelector(".temperature")
- feelslike = document.querySelector(".feelslike")
+ feelslike = document.getElementById("feelslike")
  description = document.querySelector(".description")
  date = document.querySelector(".date")
  city = document.querySelector(".city")
@@ -26,7 +26,9 @@ function finduserlocation(){
             return;
         }
         console.log(data);
-        city.innerHTML=data.name+","+data.sys.country
+        city.innerHTML=data.name+","+data.sys.country;
+      temperature.innerHTML = data.main.temp;
+      feelslike.innerHTML ="feels like" +data.main.feels_like;
         weathericon.style.background=`url(https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png)`
         fetch(`${WEATHER_DATA_ENDPOINT}&lon=${data.coord.lon}&lat=${data.coord.lat}`)
 
@@ -34,8 +36,8 @@ function finduserlocation(){
         .then((data)=>{
             console.log(data);
 
-            temperature.innerHTML = data.current.temp;
-            feelslike.innerHTML ="feels like" +data.current.feels_like
+            
+            feelslike.innerHTML ="feels like" +data.main.feels_like
         });
         
     });
